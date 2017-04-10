@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="vbox">
     <div class="top hbox">
       <div class="logo">海里巴巴</div>
       <div class="center">
@@ -13,6 +13,9 @@
         <i class="el-icon-more"></i>
         <i class="el-icon-information"></i>
       </div>
+    </div>
+    <div class="vbox flex1">
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -71,6 +74,10 @@ html,body {
   font-family: Helvetica, sans-serif;
   margin:0;
   padding:0;
+  height:100%;
+}
+#app{
+  height:100%;
 }
 .top{
   height:47px;
