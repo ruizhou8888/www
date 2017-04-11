@@ -1,20 +1,9 @@
 <template>
   <div id="app" class="vbox">
-    <div class="top hbox">
+    <div class="top">
       <div class="logo">海里巴巴</div>
-      <div class="center">
-        <el-input
-          placeholder="搜索功能"
-          icon="search"
-          v-model="searchMenu">
-        </el-input>
-      </div>
-      <div class="menu">
-        <i class="el-icon-more"></i>
-        <i class="el-icon-information"></i>
-      </div>
     </div>
-    <div class="vbox flex1">
+    <div class="hbox flex1" style="width:100%">
       <router-view></router-view>
     </div>
   </div>
@@ -42,6 +31,19 @@ export default {
 </script>
 
 <style>
+html,body {
+  font-family: Helvetica, sans-serif;
+  margin:0;
+  padding:0;
+  height:100%;
+  overflow:hidden;
+}
+#app{
+  height:100%;
+}
+.container{
+  width:100%;
+}
 .hbox{
   display:-moz-box;
   display:-webkit-box;
@@ -70,27 +72,19 @@ export default {
   flex:1;
   width:0;
 }
-html,body {
-  font-family: Helvetica, sans-serif;
-  margin:0;
-  padding:0;
-  height:100%;
-}
-#app{
-  height:100%;
-}
 .top{
   height:47px;
   line-height:47px;
-  border-bottom:1px solid #e5e5e5;
+  // border-bottom:1px solid #e5e5e5;
   padding:0 30px;
+  background-color:#669999;
 }
 .top .center{
   margin:0 auto;
   width:200px;
 }
 .top .logo{
-  color:#333;
+  color:#fff;
   font-size:20px;
   font-weight:500;
   display:inline-block;
@@ -103,5 +97,59 @@ html,body {
   font-size:20px;
   color:#00aaff;
   margin-left:20px;
+}
+@font-face {font-family: "iconfont";
+  src: url('./assets/css/iconfont.ttf?t=1491913106056') format('truetype') /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-shezhi:before {
+    content: "\e61a";
+}
+
+.icon-pic:before {
+    content: "\e608";
+}
+
+.icon-done:before {
+    content: "\e614";
+}
+
+.icon-role:before {
+    content: "\e60a";
+}
+
+.icon-user:before {
+    content: "\e6ec";
+}
+
+.icon-company:before {
+    content: "\e60b";
+}
+
+.icon-zhaopin:before {
+    content: "\e688";
+}
+
+.icon-notice:before {
+    content: "\e615";
+}
+
+.icon-desktop:before {
+    content: "\e670";
+}
+
+.icon-job:before {
+    content: "\e693";
+}
+
+.icon-resume:before {
+    content: "\e686";
 }
 </style>

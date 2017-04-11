@@ -1,11 +1,12 @@
 <template>
-<div class="hbox">
+<div class="hbox flex1">
     <left></left>
-    <router-view></router-view>
+    <div class="flex1"></div>
 </div>
 </template>
 <script>
 import Left from './common/Left.vue'
+
 export default{
     components:{
         Left
