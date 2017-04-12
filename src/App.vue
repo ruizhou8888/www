@@ -75,16 +75,16 @@ html,body {
 .top{
   height:47px;
   line-height:47px;
-  // border-bottom:1px solid #e5e5e5;
+  border-bottom:1px solid #DDDDDD;
   padding:0 30px;
-  background-color:#669999;
+  background-color:#F4F3EF;
 }
 .top .center{
   margin:0 auto;
   width:200px;
 }
 .top .logo{
-  color:#fff;
+  color:#333;
   font-size:20px;
   font-weight:500;
   display:inline-block;
@@ -99,7 +99,7 @@ html,body {
   margin-left:20px;
 }
 @font-face {font-family: "iconfont";
-  src: url('./assets/css/iconfont.ttf?t=1491913106056') format('truetype') /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  src: url('./assets/fonts/iconfont.ttf?t=1491913106056') format('truetype') /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
 .iconfont {
@@ -152,4 +152,7 @@ html,body {
 .icon-resume:before {
     content: "\e686";
 }
+.icon-message:before { content: "\e73b"; }
+.icon-tuwen:before { content: "\e646"; }
+.icon-users:before { content: "\e603"; }
 </style>

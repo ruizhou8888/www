@@ -6,7 +6,6 @@
             <span class="menu-title" v-text="m.name"></span>
         </div>
     </div>
-    <div class="loginout">退出登录</div>
 </div>
 </template>
 <script>
