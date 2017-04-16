@@ -16,59 +16,62 @@
                 <div class="flex1 nowidth" :class="{'active':curTab==1}" @click="switchTab(1)"><span>企业登录</span></div>
                 <div class="flex1 nowidth" :class="{'active':curTab==2}" @click="switchTab(2)"><span>企业注册</span></div>
             </div>
-            <div class="error" v-if="errorMsg.length>0" v-text="errorMsg"></div>
-            <div class="login-form" v-if="curTab==1">
-                <el-form ref="form" :model="user" label-width="80px">
-                    <el-input
-                        class="inline-input login-input"
-                        size="large"
-                        placeholder="邮箱账号"
-                        v-model="user.userName">
-                    </el-input>
-                    <el-input
-                        style="margin-top:25px"
-                        class="inline-input login-input"
-                        type="password"
-                        size="large"
-                        placeholder="密码"
-                        v-model="user.password">
-                    </el-input>
-                    <div style="padding:15px;">
-                        <el-button @click="login" :loading="logining" style="width:100%;margin-top:20px;" type="primary" size="large">{{loginTxt}}</el-button>
-                    </div>
+            <div class="login-form" v-show="curTab==1">
+                <el-form ref="loginForm" :rules="loginRules" :model="user" label-width="85px">
+                    <el-form-item label="用户名" prop="loginName">
+                        <el-input
+                            size="large"
+                            placeholder="邮箱账号"
+                            v-model="user.userName">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input
+                            type="password"
+                            size="large"
+                            placeholder="密码"
+                            v-model="user.password">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @click="login" style="width:100%;" type="primary" size="large">登录</el-button>
+                    </el-form-item>
                 </el-form>
             </div>
-            <div class="login-form" v-if="curTab==2">
-                <el-form ref="form" :model="regUser" label-width="80px">
-                    <el-input
-                        class="inline-input login-input"
-                        size="large"
-                        placeholder="设置登录邮箱账号"
-                        v-model="regUser.email">
-                    </el-input>
-                    <el-input
-                        class="inline-input login-input codeinput"
-                        size="large"
-                        name="checkCode"
-                        placeholder="验证码"
-                        v-model="regUser.checkCode">
-                        <template slot="append" >
-                            <span @click="getEmailCode">获取验证码</span>
-                        </template>
-                    </el-input>
-                    <el-input 
-                        style="margin-top:25px" 
-                        class="inline-input login-input" 
-                        type="password" size="large" placeholder="设置密码" 
-                        v-model="regUser.password">
-                    </el-input>
-                    <el-input 
-                        style="margin-top:25px" 
-                        class="inline-input login-input" type="password" size="large" placeholder="请确认密码" v-model="regUser.surepwd">
-                    </el-input>
-                    <div style="padding:15px;">
-                        <el-button @click="register" style="width:100%;margin-top:20px;" type="primary" size="large">注册</el-button>
-                    </div>
+            <div class="login-form" v-show="curTab==2">
+                <el-form ref="regForm" :rules="regrules" :model="regUser" label-width="85px">
+                    <el-form-item label="用户名" prop="loginName">
+                        <el-input
+                            size="large"
+                            placeholder="设置登录邮箱账号"
+                            v-model="regUser.loginName">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="验证码" prop="checkCode">
+                        <el-input
+                            size="large"
+                            name="checkCode"
+                            placeholder="验证码"
+                            v-model="regUser.checkCode">
+                            <template slot="append">
+                                <span @click="getEmailCode">获取验证码</span>
+                            </template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input 
+                            type="password" size="large" placeholder="设置密码" 
+                            v-model="regUser.password">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码" prop="surepwd">
+                        <el-input 
+                            type="password" size="large" placeholder="请确认密码" v-model="regUser.surepwd">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @click="register" style="width:100%;" type="primary" size="large">注册</el-button>
+                    </el-form-item>
                     <div style="text-align:center;padding:20px 0">
                         <a @click="curTab=1" class="link">已有账户？直接登录</a>
                     </div>
@@ -84,126 +87,97 @@
 <script>
     export default {
         data() {
-            return {
-                logining: false,
-                curTab: 1,
-                errorMsg: '',
-                codeImg: null,
-                user: {
-                    userName: '',
-                    password: ''
-                },
-                regUser: {
-                    checkCode:'',
-                    email: '',
-                    surepwd: '',
-                    password: ''
+
+            var validateEmail = (rule, value, callback) => {
+                var reg=/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/  
+                if(!reg.test(value.trim())){  
+                    callback=(new Error("您输入的邮箱格式不对"));
+                }else{
+                    callback();
                 }
-            }
-        },
-        watch: {
-            'user.userName': function() {
-                this.errorMsg = ''
-            },
-            'user.password': function() {
-                this.errorMsg = ''
-            },
-        },
-        computed: {
-            loginTxt: function() {
-                return !this.logining ? '登录' : '登录中...';
+            };
+
+            return {
+                curTab:1,
+                user:{
+                    loginName:'',
+                    password:''
+                },
+                regUser:{
+                    loginName:'',
+                    password:'',
+                    surepwd:'',
+                    checkCode:''
+                },
+                loginRules:{
+                    loginName: [
+                        { required: true, message: '请填写用户名', trigger: 'change' }
+                    ],
+                    password: [
+                        { required: true, message: '请填写密码', trigger: 'change' }
+                    ]
+                },
+                regrules:{
+                    loginName: [
+                        { required: true, message: '请填写用户名', trigger: 'change' },
+                        { validator:validateEmail, message: '邮箱格式不正确', trigger: 'change' }
+                    ],
+                    password: [
+                        { required: true, message: '请填写密码', trigger: 'change' }
+                    ],
+                    surepwd: [
+                        { required: true, message: '请再次确认密码', trigger: 'change' }
+                    ],
+                    checkCode: [
+                        { required: true, message: '请输入验证码', trigger: 'change' }
+                    ]
+                }
             }
         },
         methods: {
             switchTab: function(t) {
                 this.curTab = t;
-                this.errorMsg = '';
             },
             getEmailCode:function(){
                 var me=this;
-                if(!this.regUser.email.trim()){
-                    me.errorMsg="请输入登录邮箱";
+                if(!me.regUser.loginName.trim()){
                     return;
                 }
                 var reg=/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/  
-                if(!reg.test(me.regUser.email)){  
-                    me.errorMsg="您输入的邮箱格式不对";
+                if(!reg.test(me.regUser.loginName.trim())){  
+                    me.$message({
+                        message: "邮箱格式不正确",
+                        type: 'error'
+                    });
                     return;
                 }
-                request.post('manager/getEmailCode',{email:this.regUser.email}).then(function(res) {
-                    if (res.data.success) {
-                        me.$message({
-                            message: "验证码已发送",
-                            type: 'success'
-                        });
-                    }
-                })
-            },
-            refreshImg:function(event){
-                event.currentTarget.src="hlbb/common/getIdCode?d="+new Date().getTime();
+                me.$http.post('common/getEmailCode',{
+                    email:me.regUser.loginName.trim()
+                },function(res){
+                    me.$message({
+                        message: "验证码已发送",
+                        type: 'success'
+                    });
+                });
             },
             login: function() {
                 var me = this;
-                if (!me.user.userName || !me.user.password) return;
-                me.logining = true;
-                request.post('manager/mngLogin', me.user).then(function(res) {
-                    me.logining = false;
-                    if (res.data.success && res.data.mng) {
-                        if(res.data.company_status!=5){
-                            cookie.setCookie('user-id', res.data.mng.id, 7);
-                            var params = {
-                                id:res.data.mng.id,
-                                company_status:res.data.company_status,
-                                company_id:res.data.mng.company_id
-                            }
-                            me.$router.push({name:'Register',params:params});
-                        }else{
-                            me.errorMsg = '';
-                            cookie.setCookie('user-id', res.data.mng.id, 7);
-                            cookie.setCookie('company-id', res.data.mng.company_id, 7);
-                            me.$router.push({
-                                name:'Admin'
-                            });
-                        }
-                    } else {
-                        me.errorMsg = res.data.message;
-                    }
+                me.$http.post('mng/mngLogin', me.user).then(function(res) {
+                    me.$router.push({name:'Perfect'});
                 })
             },
             register:function(){
                 var me=this;
-                if(!me.regUser.email){
-                     me.errorMsg="请输入登录邮箱";
-                     return;
-                }
-                if(!me.regUser.checkCode){
-                     me.errorMsg="请输入验证码";
-                     return;
-                }
-                if(!me.regUser.password){
-                     me.errorMsg="请输入密码";
-                     return;
-                }
-                if(!me.regUser.surepwd){
-                     me.errorMsg="请再次输入密码";
-                     return;
-                }
-                if(me.regUser.surepwd.trim() !== me.regUser.password.trim()){
-                     me.errorMsg="两次输入密码不一致";
-                     return;
-                }
-                var reg=/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/  
-                if(!reg.test(me.regUser.email)){  
-                    me.errorMsg="您输入的邮箱格式不对";
-                    return;
-                }  
-                request.post('manager/register',me.regUser).then(function(res) {
-                    if(res.data.success){
-                        me.$router.push({name:'Register',params:{id:me.data.mng.id}});
-                    }else{
-                         me.errorMsg = res.data.errorMsg;
+                me.$refs['regForm'].validate((valid) => {
+                    if (valid) {
+                        me.$http.post('mng/register',me.regUser,function(res){
+                            console.log(res);
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
                     }
-                })
+                });
             }
         }
     }
@@ -317,6 +291,6 @@
     }
     .el-input-group__append {
         border-left: 0;
-        cursor:pointer;
+        cursor:pointer !important;
     }
 </style>

@@ -15,7 +15,7 @@ export default{
         Left
     },
     mounted(){
-        this.$router.push({name:'Home'});
+        // this.$router.push({name:'Home'});
     },
     data(){
         return {

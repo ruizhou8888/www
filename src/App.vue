@@ -3,7 +3,7 @@
     <div class="top">
       <div class="logo">海里巴巴</div>
     </div>
-    <div class="hbox flex1" style="width:100%">
+    <div class="hbox flex1" style="width:100%;overflow-y:auto;overflow-x:hidden">
       <router-view></router-view>
     </div>
   </div>
@@ -155,4 +155,32 @@ html,body {
 .icon-message:before { content: "\e73b"; }
 .icon-tuwen:before { content: "\e646"; }
 .icon-users:before { content: "\e603"; }
+.tip{
+  color:#999;line-height:normal;
+  padding-left:130px;
+  font-size:14px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9 !important;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #20a0ff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+}
+.avatar {
+  width: 150px;
+  height: 200px;
+  display: block;
+}
 </style>
