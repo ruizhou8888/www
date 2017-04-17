@@ -77,10 +77,10 @@ module.exports = (options = {}) => ({
     },
     devServer: {
         host: '127.0.0.1',
-        port: 8010,
+        port: 8020,
         proxy: {
             '/hlbb/': {
-                target: 'http://127.0.0.1:9000',
+                target: 'http://127.0.0.1:9001',
                 changeOrigin: true
             }
         },

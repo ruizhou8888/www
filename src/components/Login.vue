@@ -162,8 +162,10 @@
             },
             login: function() {
                 var me = this;
-                me.$http.post('mng/mngLogin', me.user).then(function(res) {
-                    me.$router.push({name:'Perfect'});
+                me.$http.post('mng/mngLogin', me.user,function(res){
+                    if(res.isActive){
+                        me.$router.push({name:'Perfect'});
+                    }
                 })
             },
             register:function(){

@@ -30,9 +30,10 @@
                         <el-upload
                             class="avatar-uploader"
                             action="hlbb/common/upload"
-                            name='businessLicencePath'
+                            name='file'
                             :show-file-list="false"
                             :data="uploadParam"
+                            :on-success="blSuccess"
                             :before-upload="beforeAvatarUpload">
                             <img v-if="mng.businessLicencePath" :src="mng.businessLicencePath" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -46,6 +47,7 @@
                             name='assignmentPath'
                             :show-file-list="false"
                             :data="uploadAssignmentParam"
+                            :on-success="amSuccess"
                             :before-upload="beforeAvatarUpload">
                             <img v-if="mng.assignmentPath" :src="mng.assignmentPath" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -57,6 +59,7 @@
                             class="avatar-uploader"
                             action="hlbb/common/upload"
                             name='firstDivisionPath'
+                            :on-success="fdSuccess"
                             :show-file-list="false"
                             :data="uploadFirstDivisionParam"
                             :before-upload="beforeAvatarUpload">
@@ -201,6 +204,15 @@ export default{
                 me.loaded = true;
             })
         },
+        blSuccess(res, file, fileList){
+            this.businessLicencePath = res.data;
+        },
+        amSuccess(res, file, fileList){
+            this.assignmentPath = res.data;
+        },
+        fdSuccess(res, file, fileList){
+            this.firstDivisionPath = res.data;
+        }
     }
 }
 </script>
