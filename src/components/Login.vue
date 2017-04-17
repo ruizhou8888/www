@@ -22,7 +22,7 @@
                         <el-input
                             size="large"
                             placeholder="邮箱账号"
-                            v-model="user.userName">
+                            v-model="user.loginName">
                         </el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
@@ -87,7 +87,6 @@
 <script>
     export default {
         data() {
-
             var validateEmail = (rule, value, callback) => {
                 var reg=/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/  
                 if(!reg.test(value.trim())){  
@@ -134,6 +133,11 @@
                 }
             }
         },
+        beforeCreate(){
+            if(this.$cookie.get('company-id')){
+                this.$router.push({path:'Main'});
+            }
+        },
         methods: {
             switchTab: function(t) {
                 this.curTab = t;
@@ -162,9 +166,13 @@
             },
             login: function() {
                 var me = this;
-                me.$http.post('mng/mngLogin', me.user,function(res){
-                    if(res.isActive){
+                me.$http.post('mng/login', me.user,function(res){
+                    me.$cookie.set('mng-id',res.data.id);
+                    if(res.data.isActive==0){
                         me.$router.push({name:'Perfect'});
+                    }else{
+                        me.$cookie.set('company-id',res.data.companyId);
+                        me.$router.push({name:'Main'});
                     }
                 })
             },

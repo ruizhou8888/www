@@ -32,7 +32,6 @@
                             action="hlbb/common/upload"
                             name='file'
                             :show-file-list="false"
-                            :data="uploadParam"
                             :on-success="blSuccess"
                             :before-upload="beforeAvatarUpload">
                             <img v-if="mng.businessLicencePath" :src="mng.businessLicencePath" class="avatar">
@@ -44,9 +43,8 @@
                         <el-upload
                             class="avatar-uploader"
                             action="hlbb/common/upload"
-                            name='assignmentPath'
+                            name='file'
                             :show-file-list="false"
-                            :data="uploadAssignmentParam"
                             :on-success="amSuccess"
                             :before-upload="beforeAvatarUpload">
                             <img v-if="mng.assignmentPath" :src="mng.assignmentPath" class="avatar">
@@ -58,10 +56,9 @@
                         <el-upload
                             class="avatar-uploader"
                             action="hlbb/common/upload"
-                            name='firstDivisionPath'
+                            name='file'
                             :on-success="fdSuccess"
                             :show-file-list="false"
-                            :data="uploadFirstDivisionParam"
                             :before-upload="beforeAvatarUpload">
                             <img v-if="mng.firstDivisionPath" :src="mng.firstDivisionPath" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -120,7 +117,7 @@ export default{
                 firstDivisionPath:'',
                 contactName:'',
                 contactPhone:'',
-                mngId:''
+                mngId:me.$cookie.get('mng-id'),
             },
             rules: {
                 name: [
@@ -144,29 +141,11 @@ export default{
                 contactPhone: [
                     { required: true, message: '请输入企业联系人手机号', trigger: 'blur' }
                 ]
-            },
-            uploadParam: {
-                type: 'business_licence',
-                tableName: 'company',
-                primaryValue:'',
-                uid:''
-            },
-            uploadAssignmentParam: {
-                type: 'assignment',
-                tableName: 'company',
-                primaryValue:'',
-                uid:''
-            },
-            uploadFirstDivisionParam: {
-                type: 'first_division',
-                tableName: 'company',
-                primaryValue:'',
-                uid:''
             }
         }
     },
     mounted (){
-        
+        this.loadCompanyInfo();
     },
     methods:{
         beforeAvatarUpload:function(file) {
@@ -185,9 +164,10 @@ export default{
             var me=this;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    me.$http.post('company/registerCompany',me.mng).then(function(res) {
-                        
-                    })
+                    me.$http.post('company/perfect',me.mng,function(res){
+                        me.$cookie.set('cid',res.data.id);  
+                        me.$router.push({name:'Main'}); 
+                    });
                 } else {
                     return false;
                 }
@@ -199,19 +179,19 @@ export default{
         },
         loadCompanyInfo:function(){
             var me=this;
-            me.$http.get('company/perfect',).then(function(res) {
+            me.$http.get('company/getCompanyInfo',{mngId:me.mng.mngId},function(res){
                 me.mng = res.data;
-                me.loaded = true;
-            })
+                me.mng.mngId = me.$cookie.get('mng-id');
+            });
         },
         blSuccess(res, file, fileList){
-            this.businessLicencePath = res.data;
+            this.mng.businessLicencePath = res.data;
         },
         amSuccess(res, file, fileList){
-            this.assignmentPath = res.data;
+            this.mng.assignmentPath = res.data;
         },
         fdSuccess(res, file, fileList){
-            this.firstDivisionPath = res.data;
+            this.mng.firstDivisionPath = res.data;
         }
     }
 }

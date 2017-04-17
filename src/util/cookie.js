@@ -1,5 +1,5 @@
 export default {
-    setCookie: function(cookieName, value, time) {
+    set: function(cookieName, value, time) {
         if (time) {
             var date = new Date();
             date.setDate(date.getDate() + time);
@@ -8,7 +8,7 @@ export default {
             document.cookie = cookieName + "=" + value;
         }
     },
-    getCookie: function(cookieName) {
+    get: function(cookieName) {
         if (document.cookie.length > 0) {
             if (document.cookie.indexOf(cookieName + "=") != -1) {
                 var array = [];
@@ -26,7 +26,7 @@ export default {
             return null;
         }
     },
-    delCookie: function(cookieName) {
+    del: function(cookieName) {
         if (document.cookie.length > 0) {
             if (document.cookie.indexOf(cookieName + "=") != -1) {
                 var date = new Date();

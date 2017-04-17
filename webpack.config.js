@@ -82,6 +82,10 @@ module.exports = (options = {}) => ({
             '/hlbb/': {
                 target: 'http://127.0.0.1:9001',
                 changeOrigin: true
+            },
+            '/files/': {
+                target: 'http://127.0.0.1:3000',
+                changeOrigin: true
             }
         },
         historyApiFallback: {

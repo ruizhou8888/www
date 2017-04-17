@@ -8,6 +8,7 @@ import router from './router/index'
 
 Vue.prototype.$cookie = cookie
 Vue.prototype.$http = http
+
 Vue.use(ElementUI)
 
 new Vue({
