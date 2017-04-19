@@ -3,7 +3,7 @@
     <div class="top">
       <div class="logo">海里巴巴</div>
     </div>
-    <div class="hbox flex1" style="width:100%;overflow-y:auto;overflow-x:hidden">
+    <div class="bottom hbox flex1" style="width:100%;overflow-y:auto;overflow-x:hidden">
       <router-view></router-view>
     </div>
   </div>
@@ -41,6 +41,9 @@ html,body {
 #app{
   height:100%;
 }
+#app .bottom{
+  overflow-y:auto;
+}
 .container{
   width:100%;
 }
@@ -70,21 +73,20 @@ html,body {
   -moz-flex:1;
   -moz-box-flex:1;
   flex:1;
-  width:0;
 }
 .top{
   height:47px;
   line-height:47px;
-  border-bottom:1px solid #DDDDDD;
+  border-bottom:1px solid #333;
   padding:0 30px;
-  background-color:#F4F3EF;
+  background-color:#2A3F54;
 }
 .top .center{
   margin:0 auto;
   width:200px;
 }
 .top .logo{
-  color:#333;
+  color:#fff;
   font-size:20px;
   font-weight:500;
   display:inline-block;
@@ -182,5 +184,19 @@ html,body {
   width: 150px;
   height: 200px;
   display: block;
+}
+.tool-bar{
+  background-color:#fff;
+  padding:8px;
+}
+.tool-bar div > span{
+  margin:0 10px;
+}
+.tool-bar .search{
+  float:left;
+}
+.tool-bar .option{
+  float:right;
+  padding-right:10px;
 }
 </style>
