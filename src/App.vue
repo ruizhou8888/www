@@ -193,10 +193,10 @@ html,body {
   margin:0 10px;
 }
 .tool-bar .search{
-  float:left;
-}
-.tool-bar .option{
   float:right;
   padding-right:10px;
+}
+.tool-bar .option{
+  float:left;
 }
 </style>

@@ -7,36 +7,36 @@
             </div>
             <div class="title"></div>
         </div>
-        <div v-for="m in menus" class="menu" :class="{'active':m.id==curmenu}" @click="switchMenu(m)">
+        <div v-for="m in menus" class="menu" :class="{'active':m.route==curmenu}" @click="switchMenu(m)">
             <span><i class="iconfont" :class="m.icon"></i></span>
             <span class="menu-title" v-text="m.name"></span>
             <span class="line"></span>
         </div>
     </div>
-</div>
+</div>  
 </template>
 <script>
 export default{
     data(){
         return {
-            curmenu:1,
+            curmenu:this.$router.currentRoute.name,
             menus:[
-                {id:1,name:'我的工作台',icon:'icon-desktop'},
+                {id:1,name:'我的工作台',icon:'icon-desktop',route:''},
                 {id:2,name:'企业信息',icon:'icon-company',route:'Company'},
-                {id:3,name:'宣传墙管理',icon:'icon-pic'},
-                {id:4,name:'公告管理',icon:'icon-notice'},
-                {id:5,name:'简历管理',icon:'icon-resume'},
-                {id:6,name:'职位招聘',icon:'icon-zhaopin'},
-                {id:7,name:'待办事项',icon:'icon-done'},
-                {id:8,name:'用户管理',icon:'icon-user'},
+                {id:3,name:'宣传墙管理',icon:'icon-pic',route:'CompanyWall'},
+                {id:4,name:'公告管理',icon:'icon-notice',route:'Notice'},
+                {id:5,name:'简历管理',icon:'icon-resume',route:'Resume'},
+                {id:6,name:'职位招聘',icon:'icon-zhaopin',route:'Job'},
+                {id:7,name:'待办事项',icon:'icon-done',route:'Todo'},
+                {id:8,name:'用户管理',icon:'icon-user',route:'User'},
                 {id:9,name:'常量管理',icon:'icon-role',route:'Constant'},
-                {id:10,name:'角色管理',icon:'icon-shezhi'}
+                {id:10,name:'角色管理',icon:'icon-shezhi',route:'Role'}
             ]
         }
     },
     methods:{
         switchMenu(m){
-            this.curmenu = m.id;
+            this.curmenu = m.route;
             this.$router.push({name:m.route});
         }
     }

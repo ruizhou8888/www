@@ -8,6 +8,7 @@
     tooltip-effect="dark"
     style="width: 100%"
     @selection-change="selectionChange"
+    @current-change="curChange"
     @row-dblclick="rowDblClick"
     @row-click="rowClick">
     <el-table-column
@@ -85,6 +86,9 @@
       selectionChange(val) {
         this.selection = val;
         this.$emit('selectChange',val)
+      },
+      curChange(val){
+        this.$emit('curChange',val)
       },
       rowDblClick(row,event){
         this.$emit('rowDblClick',row)
