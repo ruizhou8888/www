@@ -32,7 +32,7 @@ export default {
 
 <style>
 html,body {
-  font-family: Helvetica, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   margin:0;
   padding:0;
   height:100%;
@@ -73,6 +73,9 @@ html,body {
   -moz-flex:1;
   -moz-box-flex:1;
   flex:1;
+}
+[v-cloak]{
+  display:none;
 }
 .top{
   height:47px;

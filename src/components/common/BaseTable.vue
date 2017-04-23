@@ -1,6 +1,7 @@
 <template>
 <div class="vbox flex1">
  <el-table
+    ref="baseTable"
     v-loading.body="loading"
     class="flex1"
     highlight-current-row
@@ -98,6 +99,12 @@
       },
       clearData(){
         this.data=[];
+      },
+      clearSelect(){
+        var me =this;
+        me.data.forEach(function(item) {
+           me.$refs['baseTable'].toggleRowSelection(item,false);
+        });
       },
       sizeChange(val){
         this.pageNums = val;

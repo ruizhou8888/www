@@ -172,7 +172,7 @@
                         me.$router.push({name:'Perfect'});
                     }else{
                         me.$cookie.set('company-id',res.data.companyId);
-                        me.$router.push({name:'Main'});
+                        me.$router.push({name:'Home'});
                     }
                 })
             },

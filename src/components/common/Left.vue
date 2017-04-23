@@ -21,10 +21,10 @@ export default{
         return {
             curmenu:this.$router.currentRoute.name,
             menus:[
-                {id:1,name:'我的工作台',icon:'icon-desktop',route:''},
+                {id:1,name:'我的工作台',icon:'icon-desktop',route:'Home'},
                 {id:2,name:'企业信息',icon:'icon-company',route:'Company'},
-                {id:3,name:'宣传墙管理',icon:'icon-pic',route:'CompanyWall'},
-                {id:4,name:'公告管理',icon:'icon-notice',route:'Notice'},
+                {id:3,name:'宣传墙管理',icon:'icon-pic',route:'Wall'},
+                {id:4,name:'通知公告',icon:'icon-notice',route:'Notice'},
                 {id:5,name:'简历管理',icon:'icon-resume',route:'Resume'},
                 {id:6,name:'职位招聘',icon:'icon-zhaopin',route:'Job'},
                 {id:7,name:'待办事项',icon:'icon-done',route:'Todo'},

@@ -152,7 +152,7 @@ export default{
             me.showConstDialog = true;
         },
         typeRowDblClick(row){
-           if(this.$refs['typeForm']){
+            if(this.$refs['typeForm']){
                 this.$refs['typeForm'].resetFields();
             }
             var tempData = Object.assign({},row);
